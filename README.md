@@ -1,28 +1,52 @@
 
 # Data Analysis and AI demo
 ```matlab
-weatherData = generateSyntheticWeatherData(100)
+weatherData = generateSyntheticWeatherData(100);
 ```
 
+```matlab
+% Display the first few rows of the generated weather data
+disp(head(weatherData));
+```
 
-| |Temperature|Humidity|WindSpeed|Label|
-|:--:|:--:|:--:|:--:|:--:|
-|1|33|16|13|1|
-|2|37|80|7|3|
-|3|5|31|17|3|
-|4|37|53|11|3|
-|5|25|16|7|3|
-|6|3|60|19|3|
-|7|11|26|18|3|
-|8|22|66|11|3|
-|9|39|69|13|3|
-|10|39|75|12|3|
-|11|6|45|4|3|
-|12|39|8|6|1|
-|13|39|23|9|1|
-|14|19|92|4|3|
+```matlabTextOutput
+    Temperature    Humidity    WindSpeed    Label
+    ___________    ________    _________    _____
 
+        33            16          13          1  
+        37            80           7          3  
+         5            31          17          3  
+        37            53          11          3  
+        25            16           7          3  
+         3            60          19          3  
+        11            26          18          3  
+        22            66          11          3  
+```
 
+```matlab
+% Visualize the distribution of temperature, humidity, and wind speed
+figure;
+% Create subplots for each feature
+subplot(3, 1, 1);
+histogram(weatherData.Temperature, 'FaceColor', 'r', 'EdgeColor', 'k');
+title('Temperature Distribution');
+xlabel('Temperature (°C)');
+ylabel('Frequency');
+% Create a subplot for humidity distribution
+subplot(3, 1, 2);
+histogram(weatherData.Humidity, 'FaceColor', 'b', 'EdgeColor', 'k');
+title('Humidity Distribution');
+xlabel('Humidity (%)');
+ylabel('Frequency');
+% Create a subplot for wind speed distribution
+subplot(3, 1, 3);
+histogram(weatherData.WindSpeed, 'FaceColor', 'g', 'EdgeColor', 'k');
+title('Wind Speed Distribution');
+xlabel('Wind Speed (km/h)');
+ylabel('Frequency');
+```
+
+![figure_0.png](README_media/figure_0.png)
 # Utilities
 ```matlab
 function weatherData = generateSyntheticWeatherData(numSamples)
