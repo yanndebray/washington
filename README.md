@@ -135,6 +135,33 @@ xlabel("Time")
 ```matlab
 clear winSize
 ```
+# Machine Learning
+```matlab
+writetable(weatherData,"weatherData.csv")
+```
+
+```matlab
+testData = removevars(weatherData,"Label");
+```
+
+```matlab
+classificationLearner
+```
+
+```matlab
+save fineTreeModel.mat trainedModel
+```
+
+```matlab
+load fineTreeModel.mat
+```
+
+```matlab
+Ypred = trainedModel.predictFcn(testData);
+confusionchart(weatherData.Label,Ypred)
+```
+
+![figure_2.png](README_media/figure_2.png)
 # Utilities
 ```matlab
 function weatherData = generateSyntheticWeatherData(numSamples)
