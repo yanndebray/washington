@@ -1,5 +1,22 @@
 
+<a id="TMP_0abd"></a>
+
 # Data Analysis and AI demo
+<!-- Begin Toc -->
+
+## Table of Contents
+&emsp;[Data processing](#TMP_66bf)
+ 
+&emsp;&emsp;[Retime](#TMP_266b)
+ 
+&emsp;&emsp;[Smooth](#TMP_909f)
+ 
+&emsp;[Machine Learning](#TMP_3141)
+ 
+&emsp;[Utilities](#TMP_0a46)
+ 
+<!-- End Toc -->
+
 ```matlab
 numSamples = 100;
 ```
@@ -54,7 +71,7 @@ xlabel('Wind Speed (km/h)');
 ylabel('Frequency');
 ```
 
-![figure_0.png](README_media/figure_0.png)
+![figure_0.png](./README_media/figure_0.png)
 
 ```matlab
 % Add time to my weather table
@@ -85,7 +102,11 @@ TT = table2timetable(weatherData)
 |14|01-Apr-2025 10:57:38|19|92|4|3|
 
 
+<a id="TMP_66bf"></a>
+
 # Data processing
+<a id="TMP_266b"></a>
+
 ## Retime
 ```matlab
 % Retime timetable
@@ -111,6 +132,8 @@ TT2 = retime(TT,"regular","linear",TimeStep=hours(1))
 |14|19-Mar-2025 23:00:00|35.0065|48.1045|9.9902|2.0033|
 
 
+<a id="TMP_909f"></a>
+
 ## Smooth
 ```matlab
 % Smooth input data
@@ -130,11 +153,13 @@ ylabel("Temperature")
 xlabel("Time")
 ```
 
-![figure_1.png](README_media/figure_1.png)
+![figure_1.png](./README_media/figure_1.png)
 
 ```matlab
 clear winSize
 ```
+<a id="TMP_3141"></a>
+
 # Machine Learning
 ```matlab
 writetable(weatherData,"weatherData.csv")
@@ -161,7 +186,9 @@ Ypred = trainedModel.predictFcn(testData);
 confusionchart(weatherData.Label,Ypred)
 ```
 
-![figure_2.png](README_media/figure_2.png)
+![figure_2.png](./README_media/figure_2.png)
+<a id="TMP_0a46"></a>
+
 # Utilities
 ```matlab
 function weatherData = generateSyntheticWeatherData(numSamples)
