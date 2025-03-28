@@ -1,5 +1,55 @@
 
 # Python interop
+<a name="beginToc"></a>
+
+## Table of Contents
+&emsp;[Setup Python](#setup-python)
+ 
+&emsp;[Connect to Python](#connect-to-python)
+ 
+&emsp;[Call Python from MATLAB](#call-python-from-matlab)
+ 
+&emsp;&emsp;[Via a live task](#via-a-live-task)
+ 
+&emsp;&emsp;[Via the py. prefix](#via-the-py-prefix)
+ 
+&emsp;[Call Python packages](#call-python-packages)
+ 
+&emsp;&emsp;[Astropy](#astropy)
+ 
+&emsp;&emsp;[Obspy](#obspy)
+ 
+<a name="endToc"></a>
+
+# Setup Python
+```matlab
+websave("get-pip.py","https://bootstrap.pypa.io/get-pip.py");
+!python get-pip.py
+```
+
+```matlabTextOutput
+Defaulting to user installation because normal site-packages is not writeable
+Collecting pip
+  Using cached pip-25.0.1-py3-none-any.whl.metadata (3.7 kB)
+Using cached pip-25.0.1-py3-none-any.whl (1.8 MB)
+Installing collected packages: pip
+  Attempting uninstall: pip
+    Found existing installation: pip 25.0.1
+    Uninstalling pip-25.0.1:
+      Successfully uninstalled pip-25.0.1
+□[33m  WARNING: The scripts pip, pip3 and pip3.10 are installed in '/home/matlab/.local/bin' which is not on PATH.
+  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.□[0m□[33m
+□[0mSuccessfully installed pip-25.0.1
+```
+
+```matlab
+!python -m pip --version
+```
+
+```matlabTextOutput
+pip 25.0.1 from /home/matlab/.local/lib/python3.10/site-packages/pip (python 3.10)
+```
+
 # Connect to Python
 ```matlab
 !which python
@@ -82,10 +132,17 @@ ans = 6.4807
 # Call Python packages
 ## Astropy
 ```matlab
-websave("get-pip.py","https://bootstrap.pypa.io/get-pip.py");
-!python get-pip.py
-!python -m pip --version
 !python -m pip install astropy
+```
+
+```matlabTextOutput
+Defaulting to user installation because normal site-packages is not writeable
+Requirement already satisfied: astropy in /home/matlab/.local/lib/python3.10/site-packages (6.1.7)
+Requirement already satisfied: numpy>=1.23 in /home/matlab/.local/lib/python3.10/site-packages (from astropy) (2.2.4)
+Requirement already satisfied: pyerfa>=2.0.1.1 in /home/matlab/.local/lib/python3.10/site-packages (from astropy) (2.0.1.5)
+Requirement already satisfied: astropy-iers-data>=0.2024.10.28.0.34.7 in /home/matlab/.local/lib/python3.10/site-packages (from astropy) (0.2025.3.24.0.35.32)
+Requirement already satisfied: PyYAML>=3.13 in /usr/lib/python3/dist-packages (from astropy) (6.0.1)
+Requirement already satisfied: packaging>=19.0 in /home/matlab/.local/lib/python3.10/site-packages (from astropy) (24.2)
 ```
 
 ```matlab
@@ -145,24 +202,72 @@ ans = datetime
 
 ```matlabTextOutput
 Defaulting to user installation because normal site-packages is not writeable
-Requirement already satisfied: obspy in /home/matlab/.local/lib/python3.10/site-packages (1.4.1)
+Collecting obspy
+  Downloading obspy-1.4.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (3.7 kB)
 Requirement already satisfied: numpy>=1.20 in /home/matlab/.local/lib/python3.10/site-packages (from obspy) (2.2.4)
-Requirement already satisfied: scipy>=1.7 in /home/matlab/.local/lib/python3.10/site-packages (from obspy) (1.15.2)
-Requirement already satisfied: matplotlib>=3.3 in /home/matlab/.local/lib/python3.10/site-packages (from obspy) (3.10.1)
-Requirement already satisfied: lxml in /home/matlab/.local/lib/python3.10/site-packages (from obspy) (5.3.1)
+Collecting scipy>=1.7 (from obspy)
+  Downloading scipy-1.15.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (61 kB)
+Collecting matplotlib>=3.3 (from obspy)
+  Downloading matplotlib-3.10.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (11 kB)
+Collecting lxml (from obspy)
+  Downloading lxml-5.3.1-cp310-cp310-manylinux_2_28_x86_64.whl.metadata (3.7 kB)
 Requirement already satisfied: setuptools in /usr/lib/python3/dist-packages (from obspy) (68.1.2)
-Requirement already satisfied: sqlalchemy<2 in /home/matlab/.local/lib/python3.10/site-packages (from obspy) (1.4.54)
-Requirement already satisfied: decorator in /home/matlab/.local/lib/python3.10/site-packages (from obspy) (5.2.1)
+Collecting sqlalchemy<2 (from obspy)
+  Downloading SQLAlchemy-1.4.54-cp310-cp310-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (10 kB)
+Collecting decorator (from obspy)
+  Downloading decorator-5.2.1-py3-none-any.whl.metadata (3.9 kB)
 Requirement already satisfied: requests in /usr/lib/python3/dist-packages (from obspy) (2.31.0)
-Requirement already satisfied: contourpy>=1.0.1 in /home/matlab/.local/lib/python3.10/site-packages (from matplotlib>=3.3->obspy) (1.3.1)
-Requirement already satisfied: cycler>=0.10 in /home/matlab/.local/lib/python3.10/site-packages (from matplotlib>=3.3->obspy) (0.12.1)
-Requirement already satisfied: fonttools>=4.22.0 in /home/matlab/.local/lib/python3.10/site-packages (from matplotlib>=3.3->obspy) (4.56.0)
-Requirement already satisfied: kiwisolver>=1.3.1 in /home/matlab/.local/lib/python3.10/site-packages (from matplotlib>=3.3->obspy) (1.4.8)
+Collecting contourpy>=1.0.1 (from matplotlib>=3.3->obspy)
+  Downloading contourpy-1.3.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (5.4 kB)
+Collecting cycler>=0.10 (from matplotlib>=3.3->obspy)
+  Downloading cycler-0.12.1-py3-none-any.whl.metadata (3.8 kB)
+Collecting fonttools>=4.22.0 (from matplotlib>=3.3->obspy)
+  Downloading fonttools-4.56.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (101 kB)
+Collecting kiwisolver>=1.3.1 (from matplotlib>=3.3->obspy)
+  Downloading kiwisolver-1.4.8-cp310-cp310-manylinux_2_12_x86_64.manylinux2010_x86_64.whl.metadata (6.2 kB)
 Requirement already satisfied: packaging>=20.0 in /home/matlab/.local/lib/python3.10/site-packages (from matplotlib>=3.3->obspy) (24.2)
-Requirement already satisfied: pillow>=8 in /home/matlab/.local/lib/python3.10/site-packages (from matplotlib>=3.3->obspy) (11.1.0)
+Collecting pillow>=8 (from matplotlib>=3.3->obspy)
+  Downloading pillow-11.1.0-cp310-cp310-manylinux_2_28_x86_64.whl.metadata (9.1 kB)
 Requirement already satisfied: pyparsing>=2.3.1 in /usr/lib/python3/dist-packages (from matplotlib>=3.3->obspy) (3.1.1)
 Requirement already satisfied: python-dateutil>=2.7 in /usr/lib/python3/dist-packages (from matplotlib>=3.3->obspy) (2.8.2)
-Requirement already satisfied: greenlet!=0.4.17 in /home/matlab/.local/lib/python3.10/site-packages (from sqlalchemy<2->obspy) (3.1.1)
+Collecting greenlet!=0.4.17 (from sqlalchemy<2->obspy)
+  Downloading greenlet-3.1.1-cp310-cp310-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (3.8 kB)
+Downloading obspy-1.4.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (14.5 MB)
+□[?25l   □[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━□[0m □[32m0.0/14.5 MB□[0m □[31m?□[0m eta □[36m-:--:--□[0m
+□[2K   □[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━□[0m □[32m14.5/14.5 MB□[0m □[31m151.0 MB/s□[0m eta □[36m0:00:00□[0m
+□[?25hDownloading matplotlib-3.10.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (8.6 MB)
+□[?25l   □[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━□[0m □[32m0.0/8.6 MB□[0m □[31m?□[0m eta □[36m-:--:--□[0m
+□[2K   □[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━□[0m □[32m8.6/8.6 MB□[0m □[31m265.8 MB/s□[0m eta □[36m0:00:00□[0m
+□[?25hDownloading scipy-1.15.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (37.6 MB)
+□[?25l   □[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━□[0m □[32m0.0/37.6 MB□[0m □[31m?□[0m eta □[36m-:--:--□[0m
+□[2K   □[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━□[0m □[32m37.6/37.6 MB□[0m □[31m280.5 MB/s□[0m eta □[36m0:00:00□[0m
+□[?25hDownloading SQLAlchemy-1.4.54-cp310-cp310-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (1.6 MB)
+□[?25l   □[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━□[0m □[32m0.0/1.6 MB□[0m □[31m?□[0m eta □[36m-:--:--□[0m
+□[2K   □[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━□[0m □[32m1.6/1.6 MB□[0m □[31m187.0 MB/s□[0m eta □[36m0:00:00□[0m
+□[?25hDownloading decorator-5.2.1-py3-none-any.whl (9.2 kB)
+Downloading lxml-5.3.1-cp310-cp310-manylinux_2_28_x86_64.whl (5.2 MB)
+□[?25l   □[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━□[0m □[32m0.0/5.2 MB□[0m □[31m?□[0m eta □[36m-:--:--□[0m
+□[2K   □[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━□[0m □[32m5.2/5.2 MB□[0m □[31m246.1 MB/s□[0m eta □[36m0:00:00□[0m
+□[?25hDownloading contourpy-1.3.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (324 kB)
+Downloading cycler-0.12.1-py3-none-any.whl (8.3 kB)
+Downloading fonttools-4.56.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.6 MB)
+□[?25l   □[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━□[0m □[32m0.0/4.6 MB□[0m □[31m?□[0m eta □[36m-:--:--□[0m
+□[2K   □[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━□[0m □[32m4.6/4.6 MB□[0m □[31m258.2 MB/s□[0m eta □[36m0:00:00□[0m
+□[?25hDownloading greenlet-3.1.1-cp310-cp310-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (599 kB)
+□[?25l   □[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━□[0m □[32m0.0/599.5 kB□[0m □[31m?□[0m eta □[36m-:--:--□[0m
+□[2K   □[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━□[0m □[32m599.5/599.5 kB□[0m □[31m80.6 MB/s□[0m eta □[36m0:00:00□[0m
+□[?25hDownloading kiwisolver-1.4.8-cp310-cp310-manylinux_2_12_x86_64.manylinux2010_x86_64.whl (1.6 MB)
+□[?25l   □[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━□[0m □[32m0.0/1.6 MB□[0m □[31m?□[0m eta □[36m-:--:--□[0m
+□[2K   □[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━□[0m □[32m1.6/1.6 MB□[0m □[31m206.7 MB/s□[0m eta □[36m0:00:00□[0m
+□[?25hDownloading pillow-11.1.0-cp310-cp310-manylinux_2_28_x86_64.whl (4.5 MB)
+□[?25l   □[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━□[0m □[32m0.0/4.5 MB□[0m □[31m?□[0m eta □[36m-:--:--□[0m
+□[2K   □[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━□[0m □[32m4.5/4.5 MB□[0m □[31m260.5 MB/s□[0m eta □[36m0:00:00□[0m
+□[?25hInstalling collected packages: scipy, pillow, lxml, kiwisolver, greenlet, fonttools, decorator, cycler, contourpy, sqlalchemy, matplotlib, obspy
+□[33m  WARNING: The scripts fonttools, pyftmerge, pyftsubset and ttx are installed in '/home/matlab/.local/bin' which is not on PATH.
+  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.□[0m□[33m
+□[0m□[33m  WARNING: The scripts obspy-dataless2resp, obspy-dataless2xseed, obspy-flinn-engdahl, obspy-mopad, obspy-mseed-recordanalyzer, obspy-plot, obspy-print, obspy-reftek-rescue, obspy-runtests, obspy-scan, obspy-sds-report and obspy-xseed2dataless are installed in '/home/matlab/.local/bin' which is not on PATH.
+  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.□[0m□[33m
+□[0mSuccessfully installed contourpy-1.3.1 cycler-0.12.1 decorator-5.2.1 fonttools-4.56.0 greenlet-3.1.1 kiwisolver-1.4.8 lxml-5.3.1 matplotlib-3.10.1 obspy-1.4.1 pillow-11.1.0 scipy-1.15.2 sqlalchemy-1.4.54
 ```
 
 ```matlab
@@ -182,16 +287,17 @@ pycode2 = [...
 "st = client.get_waveforms(network=""IU"", station=""ANMO"", location=""00"", channel=""BHZ"",",...
 "                          starttime=starttime, endtime=endtime)",...
 "",...
-"data = st.traces[0].data"...
+"data = st.traces[0].data",...
+"stats = dict(st.traces[0].stats)"...
 ];
 
 try
-    [data, st] = pyrun(pycode2, ...
-         [ "data" "st" ])
-catch ME6
+    [data, stats] = pyrun(pycode2, ...
+         [ "data" "stats" ])
+catch ME
     % Clear temporary variables from workspace and from Python
     clear pycode2;
-    rethrow(ME6)
+    rethrow(ME)
 end
 ```
 
@@ -205,13 +311,10 @@ data =
 
     Use int32 function to convert to a MATLAB array.
 
-st = 
-  Python Stream with properties:
+stats = 
+  Python dict with no properties.
 
-    traces: [1x1 py.list]
-
-    1 Trace(s) in Stream:
-    IU.ANMO.00.BHZ | 2020-01-01T00:00:00.019538Z - 2020-01-01T00:00:59.994538Z | 40.0 Hz, 2400 samples
+    {'sampling_rate': 40.0, 'delta': 0.025, 'starttime': UTCDateTime(2020, 1, 1, 0, 0, 0, 19538), 'endtime': UTCDateTime(2020, 1, 1, 0, 0, 59, 994538), 'npts': 2400, 'calib': 1.0, 'network': 'IU', 'station': 'ANMO', 'location': '00', 'channel': 'BHZ', 'mseed': AttribDict({'dataquality': 'M', 'number_of_records': 5, 'encoding': 'STEIM2', 'byteorder': '>', 'record_length': 512, 'filesize': 2560}), '_format': 'MSEED', '_fdsnws_dataselect_url': 'http://service.iris.edu/fdsnws/dataselect/1/query', 'processing': ['ObsPy 1.4.1: trim(endtime=UTCDateTime(2020, 1, 1, 0, 0, 59, 994538)::fill_value=None::nearest_sample=True::pad=False::starttime=UTCDateTime(2019, 12, 31, 23, 59, 59, 994538))']}
 
 ```
 
@@ -219,44 +322,8 @@ st =
 
 % Clear temporary variables from workspace and from Python
 clear pycode2;
-st.traces{1}.stats
-```
-
-```matlabTextOutput
-ans = 
-  Python Stats with properties:
-
-             npts: [1x1 py.int]
-          network: [1x2 py.str]
-    sampling_rate: 40
-        starttime: [1x1 py.obspy.core.utcdatetime.UTCDateTime]
-            calib: 1
-          channel: [1x3 py.str]
-            mseed: [1x1 py.obspy.core.util.attribdict.AttribDict]
-            delta: 0.0250
-       processing: [1x1 py.list]
-          station: [1x4 py.str]
-         location: [1x2 py.str]
-          endtime: [1x1 py.obspy.core.utcdatetime.UTCDateTime]
-
-                   network: IU
-                   station: ANMO
-                  location: 00
-                   channel: BHZ
-                 starttime: 2020-01-01T00:00:00.019538Z
-                   endtime: 2020-01-01T00:00:59.994538Z
-             sampling_rate: 40.0
-                     delta: 0.025
-                      npts: 2400
-                     calib: 1.0
-    _fdsnws_dataselect_url: http://service.iris.edu/fdsnws/dataselect/1/query
-                   _format: MSEED
-                     mseed: AttribDict({'dataquality': 'M', 'number_of_records': 5, 'encoding': 'STEIM2', 'byteorder': '>', 'record_length': 512, 'filesize': 2560})
-                processing: ['ObsPy 1.4.1: trim(endtime=UTCDateTime(2020, 1, 1, 0, 0, 59, 994538)::fill_value=None::nearest_sample=True::pad=False::starttime=UTCDateTime(2019, 12, 31, 23, 59, 59, 994538))']
-
-```
-
-```matlab
+% Output the stream object st directly to manipulate it in MATLAB
+% st.traces{1}.stats
 data = int32(data)
 ```
 

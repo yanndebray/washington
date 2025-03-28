@@ -1,24 +1,21 @@
 
-<a id="TMP_0abd"></a>
-
 # Data Analysis and AI demo
-
-[![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/open/github/v1?repo=yanndebray/washington&file=notebook.mlx&focus=true)
-
-<!-- Begin Toc -->
+<a name="beginToc"></a>
 
 ## Table of Contents
-&emsp;[Data processing](#TMP_66bf)
+&emsp;[1 \- Data processing](#1-data-processing)
  
-&emsp;&emsp;[Retime](#TMP_266b)
+&emsp;&emsp;[Retime](#retime)
  
-&emsp;&emsp;[Smooth](#TMP_909f)
+&emsp;&emsp;[Smooth](#smooth)
  
-&emsp;[Machine Learning](#TMP_3141)
+&emsp;[2 \- Machine Learning](#2-machine-learning)
  
-&emsp;[Utilities](#TMP_0a46)
+&emsp;[3 \- Python interop](#3-python-interop)
  
-<!-- End Toc -->
+&emsp;[Utilities](#utilities)
+ 
+<a name="endToc"></a>
 
 ```matlab
 numSamples = 100;
@@ -74,8 +71,6 @@ xlabel('Wind Speed (km/h)');
 ylabel('Frequency');
 ```
 
-![figure_0.png](./README_media/figure_0.png)
-
 ```matlab
 % Add time to my weather table
 % Add a time variable to the weather data
@@ -85,8 +80,6 @@ weatherData.Time = time; % Add the time variable to the table
 % Convert the weather data table to a timetable
 TT = table2timetable(weatherData)
 ```
-
-
 | |Time|Temperature|Humidity|WindSpeed|Label|
 |:--:|:--:|:--:|:--:|:--:|:--:|
 |1|19-Mar-2025 10:57:38|33|16|13|1|
@@ -104,19 +97,12 @@ TT = table2timetable(weatherData)
 |13|31-Mar-2025 10:57:38|39|23|9|1|
 |14|01-Apr-2025 10:57:38|19|92|4|3|
 
-
-<a id="TMP_66bf"></a>
-
-# Data processing
-<a id="TMP_266b"></a>
-
+# 1 \- Data processing
 ## Retime
 ```matlab
 % Retime timetable
 TT2 = retime(TT,"regular","linear",TimeStep=hours(1))
 ```
-
-
 | |Time|Temperature|Humidity|WindSpeed|Label|
 |:--:|:--:|:--:|:--:|:--:|:--:|
 |1|19-Mar-2025 10:00:00|32.8399|13.4378|13.2402|0.9199|
@@ -133,9 +119,6 @@ TT2 = retime(TT,"regular","linear",TimeStep=hours(1))
 |12|19-Mar-2025 21:00:00|34.6732|42.7711|10.4902|1.8366|
 |13|19-Mar-2025 22:00:00|34.8399|45.4378|10.2402|1.9199|
 |14|19-Mar-2025 23:00:00|35.0065|48.1045|9.9902|2.0033|
-
-
-<a id="TMP_909f"></a>
 
 ## Smooth
 ```matlab
@@ -154,16 +137,10 @@ title("Moving window size: " + string(winSize));
 legend
 ylabel("Temperature")
 xlabel("Time")
-```
-
-![figure_1.png](./README_media/figure_1.png)
-
-```matlab
 clear winSize
 ```
-<a id="TMP_3141"></a>
 
-# Machine Learning
+# 2 \- Machine Learning
 ```matlab
 writetable(weatherData,"weatherData.csv")
 ```
@@ -189,8 +166,10 @@ Ypred = trainedModel.predictFcn(testData);
 confusionchart(weatherData.Label,Ypred)
 ```
 
-![figure_2.png](./README_media/figure_2.png)
-<a id="TMP_0a46"></a>
+# 3 \- Python interop
+```matlab
+edit 3_Python_interop/python_interop.mlx
+```
 
 # Utilities
 ```matlab
